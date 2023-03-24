@@ -10,7 +10,7 @@ data class MovieEntity(
     val overview: String,
     val posterPath: String?,
     val backdropPath: String?,
-    val releaseDate: String,
-    val voteAverage: Double,
+    val releaseDate: String?,
+    val voteAverage: Double?,
     var isFavorite: Boolean = false
 )
