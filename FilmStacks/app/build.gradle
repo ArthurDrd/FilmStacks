@@ -68,8 +68,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.compose.ui:ui:1.0.3'
     implementation 'androidx.compose.foundation:foundation:1.0.3'
-    implementation "org.koin:koin-android:3.1.2"
-    implementation "org.koin:koin-androidx-viewmodel:3.1.2"
+    implementation "io.insert-koin:koin-android:3.1.2"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
