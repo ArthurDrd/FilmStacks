@@ -8,9 +8,9 @@ data class MovieEntity(
     @PrimaryKey val id: Int,
     val title: String,
     val overview: String,
-    val posterPath: String?,
-    val backdropPath: String?,
-    val releaseDate: String?,
-    val voteAverage: Double?,
-    var isFavorite: Boolean = false
+    val adult: Boolean?,
+    val backdrop_path: String?,
+    val poster_path: String?,
+    val release_date: String?,
+    val vote_average: Double?
 )
