@@ -1,4 +1,3 @@
-
 FilmStacks
 
 FilmStacks est une application de cinéma qui utilise l'API de The Movie Database pour afficher une liste de films populaires et leurs détails. Voici une explication de chaque classe de l'application et de son fonctionnement.
@@ -34,5 +33,3 @@ MyApplication
 Cette classe est la sous-classe d'Application utilisée par l'application. Elle initialise la base de données locale et le module Dagger utilisé par l'application.
 
 Ces classes travaillent ensemble pour fournir une application de cinéma fonctionnelle qui récupère les données de l'API de The Movie Database et les stocke localement dans une base de données Room.
-
-
