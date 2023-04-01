@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 LazyColumn {
                     items(movies) { movie ->
-                        Text(movie.genre_ids.toString())
+                        Text(movie.title)
                     }
                 }
             }
