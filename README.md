@@ -1,8 +1,8 @@
-# Filmstacks
+# ***Filmstacks***
 
 Filmstacks est une application Android qui permet de rechercher et de consulter des informations sur des films populaires à partir de l'API The Movie Database (TMDb). Elle utilise une architecture MVVM (Modèle Vue Vue-Modèle) pour organiser les différentes couches de l'application.
 
-## Classes
+## *Classes*
 
 ### GenreConverter
 
@@ -44,14 +44,14 @@ Cette classe est l'activité principale de l'application. Elle contient la logiq
 
 Cette classe est une sous-classe de Application qui initialise Dagger pour la gestion des dépendances et Room pour la base de données.
 
-## Bibliothèques
+## *Bibliothèques*
 
 Cette application utilise les bibliothèques AndroidX pour simplifier le développement d'applications Android. Elle utilise également Retrofit pour effectuer des appels réseau, Moshi pour la conversion de JSON en objets Kotlin, Room pour le stockage et la gestion des données en base de données locale, et Glide pour charger et afficher des images à partir d'URL.
 
-## Configuration
+## *Configuration*
 
 Pour utiliser cette application, vous devez obtenir une clé d'API TMDb en vous inscrivant sur leur site Web. Une fois que vous avez la clé, vous devez la définir dans le fichier gradle.properties de votre projet Android en utilisant la clé "TMDB_API_KEY".
 
-## License
+## *License*
 
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
