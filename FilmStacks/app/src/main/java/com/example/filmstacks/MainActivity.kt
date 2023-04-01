@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
@@ -21,6 +22,7 @@ import com.example.filmstacks.data.local.MovieDatabase
 import com.example.filmstacks.data.local.MovieEntity
 import com.example.filmstacks.data.remote.ApiService
 import com.example.filmstacks.di.AppModule
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -55,6 +57,13 @@ class MainActivity : AppCompatActivity() {
         var movies by remember { mutableStateOf(emptyList<MovieEntity>()) }
         var isLoading by remember { mutableStateOf(false) }
 
+        val baseUrl = "https://image.tmdb.org/t/p/"
+        val imageSize = "w500"
+
+        // Prendre le poster path de l'image que tu veut afficher avec par ex
+        // val posterPath = movie.poster_path
+        // val posterUrl = "$baseUrl$imageSize$posterPath"
+
         LaunchedEffect(key1 = Unit) {
             movieRepository.updateMoviesFromApi()
         }
@@ -68,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 LazyColumn {
                     items(movies) { movie ->
-                        Text(movie.title)
+                        Text(movie.genre_ids.toString())
                     }
                 }
             }

@@ -75,6 +75,8 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.1"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.10"
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
 
     testImplementation 'junit:junit:4.13.2'
