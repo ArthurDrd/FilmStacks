@@ -1,35 +1,57 @@
-FilmStacks
+# Filmstacks
 
-FilmStacks est une application de cinéma qui utilise l'API de The Movie Database pour afficher une liste de films populaires et leurs détails. Voici une explication de chaque classe de l'application et de son fonctionnement.
+Filmstacks est une application Android qui permet de rechercher et de consulter des informations sur des films populaires à partir de l'API The Movie Database (TMDb). Elle utilise une architecture MVVM (Modèle Vue Vue-Modèle) pour organiser les différentes couches de l'application.
 
-GenreConverter
-Cette classe est un convertisseur de type utilisé par Room pour stocker et récupérer les genres des films dans la base de données locale. Il convertit un tableau d'entiers en une chaîne de caractères séparée par des virgules lorsqu'il est stocké dans la base de données, et inverse la conversion lorsqu'il est récupéré.
+## Classes
 
-MovieDao
-Cette classe est une interface utilisée pour définir les méthodes qui permettent d'effectuer des opérations de base de données sur la table des films. Elle utilise les annotations de Room pour générer automatiquement le code de mise en œuvre des méthodes.
+### GenreConverter
 
-MovieDatabase
-Cette classe est une sous-classe de RoomDatabase qui définit la base de données locale utilisée par l'application. Elle contient une instance de MovieDao et utilise les annotations de Room pour définir les entités de base de données, les versions de la base de données et les migrations.
+Cette classe est un convertisseur de type utilisé par la bibliothèque Room pour convertir les listes d'entiers (genre_ids) en chaînes de caractères JSON et vice versa pour stocker et récupérer les données des films dans la base de données locale.
 
-MovieEntity
-Cette classe est une entité de base de données qui représente un film dans la base de données locale. Elle utilise les annotations de Room pour définir les colonnes de la table des films.
+### MovieDao
 
-ApiService
-Cette classe est utilisée pour effectuer des appels à l'API de The Movie Database à l'aide de Retrofit. Elle définit les endpoints de l'API et utilise les annotations de Retrofit pour générer automatiquement le code de requête.
+Cette interface Room définit les méthodes d'accès à la base de données pour les entités MovieEntity. Elle fournit des méthodes pour insérer, supprimer et mettre à jour des films dans la base de données locale.
 
-MovieResponse
-Cette classe est un modèle de données utilisé pour stocker la réponse de l'API de The Movie Database lors de l'appel à l'endpoint des films populaires. Elle utilise les annotations de Gson pour désérialiser la réponse JSON en un objet Java.
+### MovieDatabase
 
-MovieRepository
-Cette classe est utilisée pour gérer la récupération des données de l'API et de la base de données locale. Elle utilise les instances de MovieDao et ApiService pour effectuer les opérations de base de données et les appels à l'API, et utilise des corroutines pour gérer les opérations asynchrones.
+Cette classe est une base de données Room qui contient une table pour les entités MovieEntity. Elle est responsable de la création et de la gestion de la base de données locale pour stocker les données des films.
 
-AppModule
-Cette classe est un module Dagger qui fournit les instances de MovieDao, ApiService et MovieRepository à l'application.
+### MovieEntity
 
-MainActivity
-Cette classe est l'activité principale de l'application. Elle affiche la liste des films populaires et permet à l'utilisateur de cliquer sur un film pour afficher ses détails. Elle utilise un RecyclerView pour afficher la liste des films et utilise des corroutines pour gérer les opérations asynchrones.
+Cette classe est une entité Room qui représente un film dans la base de données locale. Elle contient les attributs nécessaires pour stocker les informations d'un film, tels que l'ID, le titre, la description, la date de sortie, la note, l'affiche, etc.
 
-MyApplication
-Cette classe est la sous-classe d'Application utilisée par l'application. Elle initialise la base de données locale et le module Dagger utilisé par l'application.
+### ApiService
 
-Ces classes travaillent ensemble pour fournir une application de cinéma fonctionnelle qui récupère les données de l'API de The Movie Database et les stocke localement dans une base de données Room.
+Cette interface définit les méthodes pour effectuer des appels réseau à l'API TMDb. Elle utilise Retrofit pour gérer les appels HTTP et Moshi pour la conversion de JSON en objets Kotlin.
+
+### MovieResponse
+
+Cette classe est un objet Kotlin qui représente la réponse JSON de l'API TMDb pour la requête des films populaires. Elle contient une liste d'objets Movie qui représentent les films.
+
+### MovieRepository
+
+Cette classe est responsable de la récupération des données des films à partir de l'API TMDb et de leur stockage en base de données locale. Elle encapsule la logique de récupération des données pour fournir une interface simple pour les couches supérieures de l'application.
+
+### AppModule
+
+Cette classe est un module Dagger qui fournit les dépendances nécessaires à l'application. Elle fournit des instances de ApiService, MovieDatabase, MovieDao, MovieRepository, et GenreConverter.
+
+### MainActivity
+
+Cette classe est l'activité principale de l'application. Elle contient la logique d'affichage des fragments et gère la navigation entre les écrans.
+
+### MyApplication
+
+Cette classe est une sous-classe de Application qui initialise Dagger pour la gestion des dépendances et Room pour la base de données.
+
+## Bibliothèques
+
+Cette application utilise les bibliothèques AndroidX pour simplifier le développement d'applications Android. Elle utilise également Retrofit pour effectuer des appels réseau, Moshi pour la conversion de JSON en objets Kotlin, Room pour le stockage et la gestion des données en base de données locale, et Glide pour charger et afficher des images à partir d'URL.
+
+## Configuration
+
+Pour utiliser cette application, vous devez obtenir une clé d'API TMDb en vous inscrivant sur leur site Web. Une fois que vous avez la clé, vous devez la définir dans le fichier gradle.properties de votre projet Android en utilisant la clé "TMDB_API_KEY".
+
+## License
+
+Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
