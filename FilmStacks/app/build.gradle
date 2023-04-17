@@ -73,16 +73,17 @@ dependencies {
     implementation "androidx.room:room-ktx:2.5.1"
     implementation 'androidx.navigation:navigation-runtime-ktx:2.5.3'
     kapt "androidx.room:room-compiler:2.5.1"
-
+    implementation "io.coil-kt:coil-compose:1.4.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.10"
     implementation 'com.squareup.picasso:picasso:2.71828'
-
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
-
+    implementation 'com.google.code.gson:gson:2.8.9'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
 }

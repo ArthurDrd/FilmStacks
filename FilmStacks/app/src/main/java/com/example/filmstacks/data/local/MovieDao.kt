@@ -1,9 +1,6 @@
 package com.example.filmstacks.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -20,4 +17,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(movie: MovieEntity)
 
+    @Query("SELECT id FROM movieentity")
+    fun getAllIds(): List<Int>
+
+    @Update
+    suspend fun update(movie: MovieEntity)
 }
