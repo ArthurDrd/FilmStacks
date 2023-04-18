@@ -58,6 +58,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
+import com.example.filmstacks.data.local.GenreEntity
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -127,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
                     // Ajoutez l'ID du film à la liste
                     movieIds.add(movieId)
-                    Log.d("DownloadMovieIds", "Film $count ajouté : $movieId")
+
                     // Incrémentez le compteur
                     count++
                 }
@@ -148,7 +149,8 @@ class MainActivity : AppCompatActivity() {
                         budget = 0,
                         popularity = 0.0,
                         runtime = 0,
-                        status = ""
+                        status = "",
+                        genres = emptyList()
                     )
                     movieDao.insert(movieEntity)
 
@@ -162,8 +164,20 @@ class MainActivity : AppCompatActivity() {
         val movieIds = movieDao.getAllIds()
 
         movieIds.forEach { movieId ->
-            // Récupérez les détails du film à partir de l'API et stockez-les sur Room
-            val movieDetails = apiService.getMovieById(movieId,"dc29076f48d72ca04e4eec9c68352fac")
+            // Récupérez les détails du film à partir de l'API
+            val movieDetails = apiService.getMovieById(movieId, "dc29076f48d72ca04e4eec9c68352fac")
+
+            // Récupérez les genres du film à partir de l'API
+            val genres = mutableListOf<GenreEntity>()
+            movieDetails.genres?.forEach { genre ->
+                val genreEntity = GenreEntity(
+                    id = genre.id,
+                    name = genre.name
+                )
+                genres.add(genreEntity)
+            }
+
+            // Stockez les détails du film et ses genres sur Room
             val movieEntity = MovieEntity(
                 id = movieDetails.id,
                 title = movieDetails.title,
@@ -176,7 +190,8 @@ class MainActivity : AppCompatActivity() {
                 budget = movieDetails.budget,
                 popularity = movieDetails.popularity,
                 runtime = movieDetails.runtime,
-                status = movieDetails.status
+                status = movieDetails.status,
+                genres = genres
             )
             movieDao.update(movieEntity)
         }
@@ -206,6 +221,13 @@ class MainActivity : AppCompatActivity() {
                             Text(movie.title, style = MaterialTheme.typography.h6)
                             Spacer(modifier = Modifier.padding(4.dp))
                             Text(movie.overview, style = MaterialTheme.typography.body2)
+                            Spacer(modifier = Modifier.padding(4.dp))
+                            if (!movie.genres.isNullOrEmpty()) {
+                                Text(
+                                    movie.genres.joinToString(separator = ", ") { it.name },
+                                    style = MaterialTheme.typography.body2
+                                )
+                            }
                             Spacer(modifier = Modifier.padding(4.dp))
                             Image(
                                 painter = rememberImagePainter(

@@ -1,7 +1,7 @@
-package com.example.filmstacks.data.local
+    package com.example.filmstacks.data.local
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+    import androidx.room.Entity
+    import androidx.room.PrimaryKey
 
     @Entity
     data class MovieEntity(
@@ -16,5 +16,12 @@ import androidx.room.PrimaryKey
         val budget: Int?,
         val popularity: Double?,
         val runtime: Int?,
-        val status: String?
+        val status: String?,
+        val genres: List<GenreEntity>? = null
+    )
+
+    @Entity
+    data class GenreEntity(
+        @PrimaryKey val id: Int,
+        val name: String
     )

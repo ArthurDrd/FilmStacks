@@ -22,4 +22,7 @@ interface MovieDao {
 
     @Update
     suspend fun update(movie: MovieEntity)
+
+    @Query("SELECT name FROM GenreEntity WHERE id = :genreId")
+    suspend fun getGenreNameById(genreId: Int): String?
 }

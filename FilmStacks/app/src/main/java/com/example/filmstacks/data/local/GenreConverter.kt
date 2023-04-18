@@ -5,7 +5,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class GenreConverter {
-
     @TypeConverter
     fun fromString(value: String?): List<Int>? {
         val listType = object : TypeToken<List<Int>>() {}.type
@@ -16,4 +15,16 @@ class GenreConverter {
     fun fromList(list: List<Int>?): String? {
         return Gson().toJson(list)
     }
+
+    @TypeConverter
+    fun fromGenres(genres: List<GenreEntity>?): String? {
+        return Gson().toJson(genres)
+    }
+
+    @TypeConverter
+    fun toGenres(genreJson: String?): List<GenreEntity>? {
+        val listType = object : TypeToken<List<GenreEntity>>() {}.type
+        return Gson().fromJson(genreJson, listType)
+    }
+
 }
