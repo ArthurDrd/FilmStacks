@@ -28,8 +28,8 @@ class GenreConverter {
     }
 
     @TypeConverter
-    fun fromCompanies(companies: List<CompaniesEntity>?): String? {
-        return Gson().toJson(companies)
+    fun fromCompanies(production_companies: List<CompaniesEntity>?): String? {
+        return Gson().toJson(production_companies)
     }
 
     @TypeConverter

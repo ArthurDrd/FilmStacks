@@ -68,13 +68,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch(Dispatchers.IO) {
-            downloadAndStoreMovieIds(movieDao, movieRepository)
+            downloadAndStoreMovieIds(movieDao)
             downloadAndStoreMovieDetails(movieRepository.movieDao, apiService)
         }
     }
 
 
-    private fun downloadAndStoreMovieIds(movieDao: MovieDao, movieRepository: MovieRepository) {
+    private fun downloadAndStoreMovieIds(movieDao: MovieDao) {
         // Créez un client OkHttp pour télécharger le fichier TMDb
         val client = OkHttpClient()
 
@@ -134,7 +134,7 @@ class MainActivity : AppCompatActivity() {
                         runtime = 0,
                         status = "",
                         genres = emptyList(),
-                        companies = emptyList()
+                        production_companies = emptyList()
                     )
                     movieDao.insert(movieEntity)
 
@@ -161,15 +161,15 @@ class MainActivity : AppCompatActivity() {
                 genres.add(genreEntity)
             }
 
-            val companies = mutableListOf<CompaniesEntity>()
-            movieDetails.companies?.forEach { companie ->
+            val production_companies = mutableListOf<CompaniesEntity>()
+            movieDetails.production_companies?.forEach { companie ->
                 val companiesEntity = CompaniesEntity(
                     id = companie.id,
                     name = companie.name,
                     logo_path = companie.logo_path,
                     origin_country = companie.origin_country
                 )
-                companies.add(companiesEntity)
+                production_companies.add(companiesEntity)
             }
 
             // Stockez les détails du film et ses genres sur Room
@@ -187,7 +187,7 @@ class MainActivity : AppCompatActivity() {
                 runtime = movieDetails.runtime,
                 status = movieDetails.status,
                 genres = genres,
-                companies = companies
+                production_companies = production_companies
             )
             movieDao.update(movieEntity)
         }
@@ -225,9 +225,9 @@ class MainActivity : AppCompatActivity() {
                                 )
                             }
                             Spacer(modifier = Modifier.padding(4.dp))
-                            if (!movie.companies.isNullOrEmpty()) {
+                            if (!movie.production_companies.isNullOrEmpty()) {
                                 Text(
-                                    movie.companies.joinToString(separator = ", ") { it.name },
+                                    movie.production_companies.joinToString(separator = ", ") { it.name },
                                     style = MaterialTheme.typography.body2
                                 )
                             }

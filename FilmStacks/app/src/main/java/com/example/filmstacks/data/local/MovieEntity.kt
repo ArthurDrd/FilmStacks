@@ -18,7 +18,7 @@ data class MovieEntity(
     val runtime: Int?,
     val status: String?,
     val genres: List<GenreEntity>? = null,
-    val companies: List<CompaniesEntity>? = null
+    val production_companies: List<CompaniesEntity>? = null
 )
 
 @Entity
