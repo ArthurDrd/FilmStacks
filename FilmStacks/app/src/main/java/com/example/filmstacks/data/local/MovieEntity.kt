@@ -17,11 +17,20 @@ data class MovieEntity(
     val popularity: Double?,
     val runtime: Int?,
     val status: String?,
-    val genres: List<GenreEntity>? = null
+    val genres: List<GenreEntity>? = null,
+    val companies: List<CompaniesEntity>? = null
 )
 
 @Entity
 data class GenreEntity(
     @PrimaryKey val id: Int,
     val name: String
+)
+
+@Entity
+data class CompaniesEntity(
+    @PrimaryKey val id: Int,
+    val name: String,
+    val logo_path: String?,
+    val origin_country: String
 )

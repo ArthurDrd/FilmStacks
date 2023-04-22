@@ -3,7 +3,6 @@ package com.example.filmstacks
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -38,29 +37,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import coil.transform.CircleCropTransformation
 import com.example.filmstacks.data.local.GenreEntity
-import kotlinx.coroutines.launch
-import kotlin.random.Random
+import com.example.filmstacks.data.local.CompaniesEntity
 
 class MainActivity : AppCompatActivity() {
 
@@ -150,7 +133,8 @@ class MainActivity : AppCompatActivity() {
                         popularity = 0.0,
                         runtime = 0,
                         status = "",
-                        genres = emptyList()
+                        genres = emptyList(),
+                        companies = emptyList()
                     )
                     movieDao.insert(movieEntity)
 
@@ -177,6 +161,17 @@ class MainActivity : AppCompatActivity() {
                 genres.add(genreEntity)
             }
 
+            val companies = mutableListOf<CompaniesEntity>()
+            movieDetails.companies?.forEach { companie ->
+                val companiesEntity = CompaniesEntity(
+                    id = companie.id,
+                    name = companie.name,
+                    logo_path = companie.logo_path,
+                    origin_country = companie.origin_country
+                )
+                companies.add(companiesEntity)
+            }
+
             // Stockez les détails du film et ses genres sur Room
             val movieEntity = MovieEntity(
                 id = movieDetails.id,
@@ -191,7 +186,8 @@ class MainActivity : AppCompatActivity() {
                 popularity = movieDetails.popularity,
                 runtime = movieDetails.runtime,
                 status = movieDetails.status,
-                genres = genres
+                genres = genres,
+                companies = companies
             )
             movieDao.update(movieEntity)
         }
@@ -225,6 +221,13 @@ class MainActivity : AppCompatActivity() {
                             if (!movie.genres.isNullOrEmpty()) {
                                 Text(
                                     movie.genres.joinToString(separator = ", ") { it.name },
+                                    style = MaterialTheme.typography.body2
+                                )
+                            }
+                            Spacer(modifier = Modifier.padding(4.dp))
+                            if (!movie.companies.isNullOrEmpty()) {
+                                Text(
+                                    movie.companies.joinToString(separator = ", ") { it.name },
                                     style = MaterialTheme.typography.body2
                                 )
                             }

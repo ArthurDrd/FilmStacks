@@ -25,4 +25,7 @@ interface MovieDao {
 
     @Query("SELECT name FROM GenreEntity WHERE id = :genreId")
     suspend fun getGenreNameById(genreId: Int): String?
+
+    @Query("SELECT name FROM CompaniesEntity WHERE id = :companieId")
+    suspend fun getCompaniesNameById(companieId: Int): String?
 }

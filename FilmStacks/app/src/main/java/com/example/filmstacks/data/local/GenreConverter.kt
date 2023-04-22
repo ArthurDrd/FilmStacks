@@ -27,4 +27,14 @@ class GenreConverter {
         return Gson().fromJson(genreJson, listType)
     }
 
+    @TypeConverter
+    fun fromCompanies(companies: List<CompaniesEntity>?): String? {
+        return Gson().toJson(companies)
+    }
+
+    @TypeConverter
+    fun toCompanies(companiesJson: String?): List<CompaniesEntity>? {
+        val listType = object : TypeToken<List<CompaniesEntity>>() {}.type
+        return Gson().fromJson(companiesJson, listType)
+    }
 }
